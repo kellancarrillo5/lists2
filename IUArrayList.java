@@ -135,8 +135,7 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public boolean contains(T target) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+        return indexOf(target) > -1; //if it returns a valid index we found it
     }
 
     @Override
