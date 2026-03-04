@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
@@ -33,8 +34,18 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
         rear = 0;
     }
 
+    /**
+     * Double the array capacity if full
+     */
+    private void expandIfNecessay(){
+        if(array.length == rear){
+            array = Arrays.copyOf(array, array.length*2);
+        }
+    }
+
     @Override
     public void addToFront(T element) {
+        expandIfNecessay();
         for (int i = rear; i > 0; i--) {
             array[i] = array[i - 1];
         }
@@ -44,6 +55,7 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public void addToRear(T element) {
+        expandIfNecessay();
         array[rear] = element;
         rear++;
     }
@@ -55,6 +67,7 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public void addAfter(T element, T target) {
+        expandIfNecessay();
         int targetIndex = indexOf(target);
         if(targetIndex < 0 || targetIndex > rear){
             throw new NoSuchElementException();
@@ -64,6 +77,7 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public void add(int index, T element) {
+        expandIfNecessay();
         if (index > rear || index < 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -191,4 +205,32 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
         throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
     }
 
+    /** Iterator for IUArrayList */
+	private class ALIterator implements Iterator<T> {
+		private int nextIndex;
+		private int iterModCount;
+		
+		public ALIterator() {
+			nextIndex = 0;
+			iterModCount = modCount;
+		}
+
+		@Override
+		public boolean hasNext() {
+			// TODO 
+			return false;
+		}
+
+		@Override
+		public T next() {
+			// TODO 
+			return null;
+		}
+		
+		@Override
+		public void remove() {
+			// TODO
+			
+		}
+	}
 }
