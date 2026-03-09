@@ -49,6 +49,7 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
     @Override
     public void addToFront(T element) {
         expandIfNecessay();
+        //shift all the elements up one position to make room at the very front
         for (int i = rear; i > 0; i--) {
             array[i] = array[i - 1];
         }
@@ -86,6 +87,7 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
         if (index > rear || index < 0) {
             throw new IndexOutOfBoundsException();
         }
+        //Shift all elements to the right, make space at the index
         for (int i = rear; i > index; i--) {
             array[i] = array[i - 1];
         }
@@ -182,7 +184,8 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public boolean contains(T target) {
-        return indexOf(target) > -1; // if it returns a valid index we found it
+        //returns a valid index if only if it exists
+        return indexOf(target) > -1; 
     }
 
     @Override
@@ -246,6 +249,7 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
             if (iterModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
+            //There is a next element as long as nextIndex hasn't reached rear
             return nextIndex < rear;
         }
 
@@ -273,7 +277,6 @@ public class IUArrayList<T> implements IndexedUnsortedList<T> {
             // Last returned element was at nextIndex - 1
             IUArrayList.this.remove(nextIndex - 1);
             nextIndex--;
-            canRemove = false;
             iterModCount = modCount;
         }
     } // end of ALIterator Class
