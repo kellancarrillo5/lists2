@@ -858,7 +858,6 @@ public class ListTester {
 			printTest(scenarioName + "_iterNextNextNextRemove_testIterHasNext", testIterHasNext(iterAfterRemove(iterAfterNext(scenario.build(), 3)), Result.False));
 			printTest(scenarioName + "_iterNextNextNextRemove_testIterNext", testIterNext(iterAfterRemove(iterAfterNext(scenario.build(), 3)), null, Result.NoSuchElement));
 			printTest(scenarioName + "_iterNextNextNextRemove_testIterRemove", testIterRemove(iterAfterRemove(iterAfterNext(scenario.build(), 3)), Result.IllegalState));
-			
 			// ListIterator
 			if (SUPPORTS_LIST_ITERATOR) {
 				//TODO: will add for double-linked list
@@ -1438,7 +1437,7 @@ public class ListTester {
     	}
     	return iterator;
 	}
-	
+
 	/** Helper for testing iterators. Return an Iterator that has had remove() called once.
 	 * @param iterator
 	 * @return same Iterator following a call to remove()
