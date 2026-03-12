@@ -23,20 +23,30 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public void addToFront(T element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addToFront'");
+        Node<T> newNode = new Node<T>(element);
+        newNode.setNextNode(head);
+        head = newNode;
+        if(tail == null){ //maybe isEmpty or size == 0
+            tail = newNode;
+        }
+        size++;
     }
 
     @Override
     public void addToRear(T element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addToRear'");
+        Node<T> newNode = new Node<T>(element);
+        if(isEmpty()){
+            head = newNode;
+        } else {
+            tail.setNextNode(newNode);
+        }
+        tail = newNode;
+        size++;    
     }
 
     @Override
     public void add(T element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        addToRear(element);
     }
 
     @Override
@@ -53,14 +63,36 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public T removeFirst() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeFirst'");
+        if(isEmpty()){
+            throw new NoSuchElementException();
+        }
+        T retVal = head.getElement();
+        head = head.getNextNode();
+        if(head == null){ // or size =1 -- we're removing the only element
+            tail = null;
+        }
+        size--;
+        return retVal;
     }
 
     @Override
     public T removeLast() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeLast'");
+        if(isEmpty()){
+            throw new NoSuchElementException();
+        }
+        T retvaL = tail.getElement();
+        if(size == 1){ //special case of single element list
+            head = tail = null;
+        }else { //"general case" where list is "long"
+        Node<T> currentNode = head;
+        while(currentNode.getNextNode() != tail){
+            currentNode = currentNode.getNextNode();
+        }
+        currentNode.setNextNode(null);
+        tail = currentNode;
+        }
+        size--;
+        return retvaL;
     }
 
     @Override
