@@ -20,6 +20,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
     public IUSingleLinkedList() {
         head = tail = null;
         size = 0;
+        modCount = 0;
     }
 
     @Override
@@ -31,6 +32,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
             tail = newNode;
         }
         size++;
+        modCount++;
     }
 
     @Override
@@ -43,6 +45,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
         }
         tail = newNode;
         size++;
+        modCount++;
     }
 
     @Override
@@ -52,8 +55,16 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public void addAfter(T element, T target) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addAfter'");
+        Node<T> current = head;
+        while(current != null && !current.getElement().equals(target)){
+            current.getNextNode();
+        }
+        if (current == null) {
+            throw new NoSuchElementException();
+        }
+        Node<T> newNode = new Node<T>(element, current.getNextNode());
+        current.setNextNode(newNode);
+        modCount++;
     }
 
     @Override
