@@ -1,3 +1,4 @@
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
@@ -56,13 +57,16 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
     @Override
     public void addAfter(T element, T target) {
         Node<T> current = head;
-        while(current != null && !current.getElement().equals(target)){
+        while (current != null && !current.getElement().equals(target)) {
             current.getNextNode();
         }
         if (current == null) {
             throw new NoSuchElementException();
         }
         Node<T> newNode = new Node<T>(element, current.getNextNode());
+        if (current == tail) {
+            tail = newNode;
+        }
         current.setNextNode(newNode);
         modCount++;
     }
@@ -84,6 +88,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
             tail = null;
         }
         size--;
+        modCount++;
         return retVal;
     }
 
@@ -104,6 +109,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
             tail = currentNode;
         }
         size--;
+        modCount++;
         return retvaL;
     }
 
@@ -143,7 +149,6 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
 
         size--;
         modCount++;
-
         return current.getElement();
     }
 
@@ -222,8 +227,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public Iterator<T> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+        return new SLLIterator();
     }
 
     @Override
@@ -242,28 +246,58 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
     private class SLLIterator implements Iterator<T> {
         private Node<T> nextNode;
         private int iterModCount;
+        private boolean canRemove;
 
         /** Creates a new iterator for the list */
         public SLLIterator() {
             nextNode = head;
             iterModCount = modCount;
+            canRemove = false;
         }
 
         @Override
         public boolean hasNext() {
-            // TODO
-            return false;
+            if(iterModCount != modCount){
+                throw new ConcurrentModificationException();
+            }
+            return nextNode != null;
         }
 
         @Override
         public T next() {
-            // TODO
-            return null;
+            if(!hasNext()){
+                throw new NoSuchElementException();
+            }
+            T retVal = nextNode.getElement();
+            nextNode = nextNode.getNextNode();
+            canRemove = true;
+            return retVal;
         }
 
         @Override
         public void remove() {
-            // TODO
+            if(iterModCount != modCount){
+                throw new ConcurrentModificationException();
+            }
+            if(!canRemove){
+                throw new IllegalStateException();
+            }
+
+            if(head.getNextNode() == nextNode){
+                head = nextNode;
+                if(head == null){
+                    tail = null;
+                }
+            }else{
+                canRemove = false;
+                Node<T> current = head;
+                while(current.getNextNode().getNextNode() != nextNode){
+                    current = current.getNextNode();
+                }
+            current.setNextNode(nextNode); 
+            if(nextNode == null){
+                tail = current;
+            }
         }
     }
 
