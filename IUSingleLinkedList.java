@@ -232,14 +232,12 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public ListIterator<T> listIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public ListIterator<T> listIterator(int startingIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
+        throw new UnsupportedOperationException();
     }
 
     /** Iterator for IUSingleLinkedList */
@@ -257,7 +255,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
 
         @Override
         public boolean hasNext() {
-            if(iterModCount != modCount){
+            if (iterModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
             return nextNode != null;
@@ -265,7 +263,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
 
         @Override
         public T next() {
-            if(!hasNext()){
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             T retVal = nextNode.getElement();
@@ -276,29 +274,43 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
 
         @Override
         public void remove() {
-            if(iterModCount != modCount){
+            if (iterModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
-            if(!canRemove){
+            if (!canRemove) {
                 throw new IllegalStateException();
             }
 
-            if(head.getNextNode() == nextNode){
+            if (head.getNextNode() == nextNode) {
                 head = nextNode;
-                if(head == null){
+                if (head == null) {
                     tail = null;
                 }
-            }else{
+            } else {
                 canRemove = false;
                 Node<T> current = head;
-                while(current.getNextNode().getNextNode() != nextNode){
+                while (current.getNextNode().getNextNode() != nextNode) {
                     current = current.getNextNode();
                 }
-            current.setNextNode(nextNode); 
-            if(nextNode == null){
-                tail = current;
+                current.setNextNode(nextNode);
+                if (nextNode == null) {
+                    tail = current;
+                }
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder("[");
+        Node<T> current = head;
+        while(current!= null){
+            str.append(current.getElement());
+            if(current.getNextNode() != null) str.append(", ");
+                current = current.getNextNode();
+        }
+        str.append("]");
+        return str.toString();
     }
 
 }
