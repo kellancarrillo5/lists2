@@ -1,10 +1,11 @@
 /**
- * Single-linked node for linear data stuctures
+ * Double-linked node for linear data stuctures
  * 
  * @author mvail, CS221-1 Sp26, kellancarrillo5
  */
 public class Node<T> {
     private Node<T> nextNode;
+    private Node<T> prevNode;
     private T element;
 
     /**
@@ -13,6 +14,7 @@ public class Node<T> {
     public Node() {
         nextNode = null;
         element = null;
+        prevNode = null;
     }
 
     /**
@@ -23,6 +25,7 @@ public class Node<T> {
     public Node(T element) {
         this.element = element;
         nextNode = null;
+        prevNode = null;
     }
 
     /**
@@ -44,7 +47,27 @@ public class Node<T> {
         this.element = element;
         this.nextNode = nextNode;
     }
+    /////////////////
+    /** FIX LATER//
+     * /////////////
+     * Returns the element stored in this node.
+     * 
+     * @return the element stored in this node
+     */
+    public T getPrevNode() {
+        return prevNode;
+    }
 
+    ///////////////
+    /**FIX LATER///
+     * ////////////
+     * Sets the element stored in this node.
+     * 
+     * @param element the element to be stored in this node
+     */
+    public void setPrevNode(T element) {
+        this.prevNode = prevNode;
+    }
     /**
      * Sets the node that follows this one.
      * 

@@ -58,7 +58,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
     public void addAfter(T element, T target) {
         Node<T> current = head;
         while (current != null && !current.getElement().equals(target)) {
-            current.getNextNode();
+            current = current.getNextNode();
         }
         if (current == null) {
             throw new NoSuchElementException();
@@ -297,6 +297,9 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
                     tail = current;
                 }
             }
+            size--;
+            modCount++;
+            iterModCount++;
         }
     }
 
@@ -304,10 +307,11 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
     public String toString() {
         StringBuilder str = new StringBuilder("[");
         Node<T> current = head;
-        while(current!= null){
+        while (current != null) {
             str.append(current.getElement());
-            if(current.getNextNode() != null) str.append(", ");
-                current = current.getNextNode();
+            if (current.getNextNode() != null)
+                str.append(", ");
+            current = current.getNextNode();
         }
         str.append("]");
         return str.toString();
