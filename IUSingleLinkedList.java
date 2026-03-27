@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * Single-linked node-based implementation of IndexUnsortedList
  * supporting a basic Iterator but not ListIterator
  * 
- * @author mvail and CS221-1- Sp26
+ * @author mvail and CS221-1- Sp26 and kellancarrillo5
  */
 public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
     private Node<T> head; // not optional, must-have
@@ -359,7 +359,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
     }
 
     @Override
-    public String toString() {
+    public String toString() { //same basis as the IUArraylist toString
         StringBuilder str = new StringBuilder("[");
         Node<T> current = head;
         while (current != null) {

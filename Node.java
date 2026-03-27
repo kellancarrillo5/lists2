@@ -47,27 +47,7 @@ public class Node<T> {
         this.element = element;
         this.nextNode = nextNode;
     }
-    /////////////////
-    /** FIX LATER//
-     * /////////////
-     * Returns the element stored in this node.
-     * 
-     * @return the element stored in this node
-     */
-    public T getPrevNode() {
-        return prevNode;
-    }
-
-    ///////////////
-    /**FIX LATER///
-     * ////////////
-     * Sets the element stored in this node.
-     * 
-     * @param element the element to be stored in this node
-     */
-    public void setPrevNode(T element) {
-        this.prevNode = prevNode;
-    }
+   
     /**
      * Sets the node that follows this one.
      * 
