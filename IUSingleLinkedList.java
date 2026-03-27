@@ -68,6 +68,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
             tail = newNode;
         }
         current.setNextNode(newNode);
+        size++;
         modCount++;
     }
 
@@ -267,7 +268,7 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public boolean contains(T target) {
-         return indexOf(target) >= 0;
+        return indexOf(target) >= 0;
     }
 
     @Override
@@ -335,14 +336,13 @@ public class IUSingleLinkedList<T> implements IndexedUnsortedList<T> {
             if (!canRemove) {
                 throw new IllegalStateException();
             }
-
+            canRemove = false;
             if (head.getNextNode() == nextNode) {
                 head = nextNode;
                 if (head == null) {
                     tail = null;
                 }
             } else {
-                canRemove = false;
                 Node<T> current = head;
                 while (current.getNextNode().getNextNode() != nextNode) {
                     current = current.getNextNode();
