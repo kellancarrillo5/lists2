@@ -271,15 +271,15 @@ public class ListTester {
 			// case badList:
 			// listToUse = new BadList<Integer>();
 			// break;
-			case arrayList:
-				listToUse = new IUArrayList<Integer>();
-				break;
+			// case arrayList:
+			// 	listToUse = new IUArrayList<Integer>();
+			// 	break;
 			case singleLinkedList:
 				listToUse = new IUSingleLinkedList<Integer>();
 				break;
-			case doubleLinkedList:
-				listToUse = new IUDoubleLinkedList<Integer>();
-				break;
+			// case doubleLinkedList:
+			// 	listToUse = new IUDoubleLinkedList<Integer>();
+			// 	break;
 			default:
 				listToUse = null;
 		}
