@@ -1,3 +1,4 @@
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
@@ -157,20 +158,123 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
 
     @Override
     public Iterator iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+        return new DLLIterator();
     }
 
     @Override
     public ListIterator listIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
+        return new DLLIterator();
     }
 
     @Override
     public ListIterator listIterator(int startingIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
+        return new DLLIterator(startingIndex);
     }
 
+    /**
+     * ListIterator  ( and basic Iterator for Double Linked List)
+     */
+    private class DLLIterator implements ListIterator<T>{
+        private Node<T> NextNode;
+        private int iterModCount;
+        private int nextIndex;
+
+        /**
+         * initialize iterator before the first element
+         */
+        public DLLIterator() {
+            // nextNode = head;
+            // iterModCount = modCount;
+            // nextIndex = 0;
+            this(0); //c
+        }
+
+        /**
+         * Initializes iterator before the given startingIndex
+         * @param startingIndex
+         * @throws IndexOutOfBounds
+         */
+        public DLLIterator(int startingIndex) {
+            if (startingIndex < 0 || startingIndex > size){
+                throw new IndexOutOfBoundsException();
+            }
+            nextIndex = startingIndex;
+            nextNode = head;
+            for (int i = 0; i < startingIndex; i++){
+                nextNode = nextNode.getNextNode();
+            }
+            iterModCount = modCount;
+        }
+        @Override
+        public boolean hasNext() {
+            if(iterModCount != modCount){
+                throw new ConcurrentModificationException();
+            }
+            return nextNode != null;
+        }
+
+        @Override
+        public T next() {
+            if(iterModCount != modCount){
+                throw new NoSuchElementException();
+            }
+            T retVal = nextNode.getElement();
+            nextNode = nextNode.getNextNode();
+            nextIndex++;
+            return retVal;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            if(iterModCount != modCount){
+                throw new ConcurrentModificationException();
+            }
+            return nextNode != head;
+        }
+
+        @Override
+        public T previous() {
+            if (!hasPrevious()){
+                throw new NoSuchElementException();
+            }
+            if (nextNode != null) {
+                nextNode = nextNode.getPrevNode();
+            } else {
+                nextNode = tail;
+            }          
+            nextIndex--;
+            return nextNode.getElement();
+        }
+
+        @Override
+        public int nextIndex() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'nextIndex'");
+        }
+
+        @Override
+        public int previousIndex() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'previousIndex'");
+        }
+
+        @Override
+        public void remove() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        }
+
+        @Override
+        public void set(T e) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'set'");
+        }
+
+        @Override
+        public void add(T e) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'add'");
+        }
+
+    }
 }
