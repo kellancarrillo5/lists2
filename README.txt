@@ -7,80 +7,40 @@
 
 OVERVIEW:
 
-This program implements Double-linked, a node-based implementation of IndexUnsortedList that supports a basic Iterator and a 
-ListIterator. These iterators allow use to navigate forwards and backwards and supports add, remove, and set operations.
-Additonally there is a full test suite in ListTester that was utilized to verify correct behavior for all methods and scenerios. 
+This program implements Double-linked, a node-based implementation of IndexUnsortedList that supports a basic Iterator and a ListIterator. These iterators allow you to navigate forwards and backwards and supports add, remove, and set operations. Additonally there is a full test suite in ListTester that was utilized to verify correct behavior for all methods and scenerios. 
+
 
 INCLUDED FILES:
 
- List the files required for the project with a brief
- explanation of why each is included.
-
- e.g.
- * IUDoubleLinkedList.java - source file, double linked list implementation
- * ListTester.java - source file, verifies the behavior of IndexedUnsortedList implementation with all ListIterator methods and concurrency scenarios
- * Node.java - source file, double linked node that stores an element and references to both the next and previous nodes
+ * IUDoubleLinkedList.java - source file, double linked list implementation of IndexUnsortedList including a DLLIterator class
+ * ListTester.java - source file, verifies the behavior of IndexedUnsortedList and implementation with all ListIterator methods and concurrency scenarios
+ * Node.java - source file, double linked node that stores an element and is able to references to both the next and previous nodes
  * IndexUnsorted.java - source file, the interface that defines all methods that IUDoubleLinkedList inherits
  * README.txt - this file
 
 
 COMPILING AND RUNNING:
 
- Give the command for compiling the program, the command
- for running the program, and any usage instructions the
- user needs.
- 
- In the command line enter the following:
-  1. Start by entering the folder with the included files above using cd and following the directory path to where the file is stored.
-  2. Once you are in the folder, verify with ls "filename" that all files listed in the included files section are there. This confirms you are in the directory containing all the source files.
-  3. Enter the command: $ javac ListTester.java
-  4. Enter the command: $ java ListTester
-  5. The output will display to the console each test result followed by a final summary showing total tests run, passed, and failed.
+ From the directory containing all source files, compile the driver class and all dependent files with the command:
+$ javac ListTester.java
+Run the compiled class file with the command: 
+$ java ListTester
+The output will display to the console each test result followed by a final summary showing total tests run, passed, and failed.
 
 PROGRAM DESIGN AND IMPORTANT CONCEPTS:
 
- This is the sort of information someone who really wants to
- understand your program - possibly to make future enhancements -
- would want to know.
+The interface IndexUnsortedList interface defines the contract signed by DoubleLinkedList when it inherits IndexUnsortedList and is ultimately what this program is centered around. Some of these methods include indexed access, unsorted storage, add/remove/set operations at different positions, and both Iterator and ListIterator support. By using an interface, it can be easily modified for any future implementation as we had done previously in assignments SLL and arrayList. Node<T> is a double-linked node for linear data stuctures that is utilized in DoubleLinkedList, essentially creating the building blocks of the list. It is able to hold an element and references to both the next and previous nodes. Having both directions is what makes the list double linked by allowing you to go through the list both forward and backward. From there IUDoubleLinkedList is ready to inherit IndexUnsortedList. It keeps track of a head reference, tail reference, size counter, and modCount that increments on every change to the list. There are two helper methods I added to IUDoubleLinkedList, nodeAt(int index) and removeNode(Node<T>). nodeAt(int index) starts at the head when the target index is in the first half of the list and starts at the tail when its in the second half, helping save time to find the node. Additionally removeNode(Node<T>) saves lines of code that would have been written in each remove method. Each remove method finds the correct node and passes it to the helper, keeping it effective and clear. There is also a inner class, DLLIterator that handles both the basic Iterator and ListIterator. It keeps track of the nextNode, prevNode, and which direction the last movement was. A key component of the DLLIterator is that every method checks whether the list has been modified from outside the iterator and throws a ConcurrentModificationException if it has. 
 
- Explain the main concepts and organization of your program so that
- the reader can understand how your program works. This is not a repeat
- of javadoc comments or an exhaustive listing of all methods, but an
- explanation of the critical algorithms and object interactions that make
- up the program.
-
- Explain the main responsibilities of the classes and interfaces that make
- up the program. Explain how the classes work together to achieve the program
- goals. If there are critical algorithms that a user should understand, 
- explain them as well.
- 
- If you were responsible for designing the program's classes and choosing
- how they work together, why did you design the program this way? What, if 
- anything, could be improved? 
-
- The interface IndexUnsortedList.java is what this program is centered around. 
- This interface defines the contract signed by DoubleLinkedList when it inherits IndexUnsortedList. Some of these methods include indexed access, unsorted storage, add/remove/set operations at
- different positions, and both Iterator and ListIterator support. By using an interface, it can be easily modified for any future implementation.
- Node<T> is a double-linked node for linear data stuctures. It is able to hold an element and references to both the next and previous nodes. 
- Allowing for easy adding and removal of components on the list with the ability to move backwards. From there IUDoubleLinkedList is ready to inherit IndexUnsortedList. It maintains a head
- reference, a tail reference, a size counter, and a modCount that increments on every structural change. There are two helper methods I added to IUDoubleLinkedList, nodeAt(int index) and removeNode(Node<T>). 
 
 TESTING:
 
- How did you test your program to be sure it works and meets all of the
- requirements? What was the testing strategy? What kinds of tests were run?
- Can your program handle bad input? Is your program  idiot-proof? How do you 
- know? What are the known issues / bugs remaining in your program?
+ 
+Testing was done with the provided testing class ListTester and adding upon it in stages. Each scenario builder method constructs a list in a specific state, modifies it, and then tests if it was the anticipated result. These test checks every observable property of the list in that state like the size, isEmpty, first, last, contains, get, indexOf, toString, all iterator states, and all expected exceptions for out-of-bounds or invalid operations. The testing class covers four list sizes: empty, one element, two elements, three elements for all of the construction scenarios. The ListIterator were also written for all of the list sizes. 
+
+All tests are passing with no failure. The program ensures all index and element arguments and throws the appropriate exceptions in every case required by the interface contract.
 
 
 DISCUSSION:
  
- Discuss the issues you encountered during programming (development)
- and testing. What problems did you have? What did you have to research
- and learn on your own? What kinds of errors did you get? How did you 
- fix them?
- 
- What parts of the project did you find challenging? Is there anything
- that finally "clicked" for you in the process of working on this project?
- 
+ The hardest part of this project for me was grasping the ListIterator cursor sat between elements instead of on one. Specifically this proved a challenge in the remove() method. After removing the element having the cursor in the right spot depended on if you called next() or previous(). Getting the direction logic wrong caused test to fail that used the iterators remove method because the cursor would be pointing at the wrong node after the removal, making the next next() or previous() call return the wrong element. What really helped me think about how to solve this was drawing out the nodes and working through where the cursor should be. Similarly to how we worked on the methods in class, visually seeing what we were talking about helped me find this issue. After slowly figuring out the logic I was able to fix this with the boolean lastWasNext to track the last direction. If lastWasNext is true it meant the node was behind the cursor because next() was called last, meaning that you'd have to decrement nextIndex. While if it was false the node would be at the curse and previous() was called last so it needed to advance nextNode past it. After this fix a significant amount of my tests were passing. This cursor confustion in the DLLIterator was my main challenge to grasp, and finally was able to click after much trouble shooting. Drawing the nodes became my biggest asset to really force myself to fully understand what was happening. Overall there were many challenging aspects of this project that allowed me to gain a deep understanding of iterators and how a double-linked list functions.
  

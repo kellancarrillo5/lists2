@@ -318,7 +318,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
          * initialize iterator before the first element
          */
         public DLLIterator() {
-            this(0); // c
+            this(0); 
         }
 
         /**
