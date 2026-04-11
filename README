@@ -16,7 +16,7 @@ INCLUDED FILES:
  * ListTester.java - source file, verifies the behavior of IndexedUnsortedList and implementation with all ListIterator methods and concurrency scenarios
  * Node.java - source file, double linked node that stores an element and is able to references to both the next and previous nodes
  * IndexedUnsortedList.java - source file, the interface that defines all methods that IUDoubleLinkedList inherits
- * README.txt - this file
+ * README - this file
 
 
 COMPILING AND RUNNING:
