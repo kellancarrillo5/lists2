@@ -1,5 +1,5 @@
 /**
- * Double-linked node for linear data stuctures
+ * Double-linked node for linear data structures
  * 
  * @author mvail, CS221-1 Sp26, kellancarrillo5
  */
@@ -29,7 +29,8 @@ public class Node<T> {
     }
 
     /**
-     * Creates a node with the given element and next node reference while prevNode is set to null.
+     * Creates a node with the given element and next node reference while prevNode
+     * is set to null.
      * 
      * @param element  the element to store
      * @param nextNode the node that follows this one
