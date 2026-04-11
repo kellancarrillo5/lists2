@@ -325,7 +325,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
          * Initializes the iterator before the given startingIndex.
          * 
          * @param startingIndex
-         * @throws IndexOutOfBounds
+         * @throws IndexOutOfBoundsException()
          */
         public DLLIterator(int startingIndex) {
             if (startingIndex < 0 || startingIndex > size) {
@@ -424,8 +424,8 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
                 // nextIndex
                 nextIndex--;
             } else {
-                // previous() was the last movement so lastReturned is at cursor, most nextNode
-                // forward!
+                // previous() was the last movement so lastReturned is at cursor, move the
+                // nextNode forward
                 nextNode = lastReturned.getNextNode();
             }
             removeNode(lastReturned); // updates size and modCount
