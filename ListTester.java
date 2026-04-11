@@ -1213,7 +1213,6 @@ public class ListTester {
 
 	private Scenario<Integer> CAB_listIterPrevSetD_CAD = () -> CAB_listIterPrevSetD_CAD();
 
-
 	/**
 	 * Scenario: [] -> listIter.add(A) -> [A]
 	 *
@@ -1357,7 +1356,7 @@ public class ListTester {
 					testIterRemove(scenario.build().iterator(), Result.IllegalState));
 			// ListIterator
 			if (SUPPORTS_LIST_ITERATOR) {
-				// TODO: will add for double-linked list
+				// double-linked list
 				printTest(scenarioName + "_testListIter", testListIter(scenario.build(), Result.NoException));
 				printTest(scenarioName + "_testListIterNeg1",
 						testListIter(scenario.build(), -1, Result.IndexOutOfBounds));
@@ -1487,7 +1486,7 @@ public class ListTester {
 					testIterRemove(iterAfterRemove(iterAfterNext(scenario.build(), 1)), Result.IllegalState));
 			// ListIterator
 			if (SUPPORTS_LIST_ITERATOR) {
-				// TODO: will add for double-linked list
+				// double-linked list
 				printTest(scenarioName + "_testListIter", testListIter(scenario.build(), Result.NoException));
 				printTest(scenarioName + "_testListIterNeg1",
 						testListIter(scenario.build(), -1, Result.IndexOutOfBounds));
@@ -1637,7 +1636,7 @@ public class ListTester {
 			String contentsString) {
 		System.out.printf("\nSCENARIO: %s\n\n", scenarioName);
 		try {
-			// TODO: tests for scenarios ending in a 2-element list
+			// tests for scenarios ending in a 2-element list
 			printTest(scenarioName + "_testRemoveFirst",
 					testRemoveFirst(scenario.build(), contents[0], Result.MatchingValue));
 			printTest(scenarioName + "_testRemoveLast",
@@ -1736,7 +1735,7 @@ public class ListTester {
 					testIterRemove(iterAfterRemove(iterAfterNext(scenario.build(), 2)), Result.IllegalState));
 			// ListIterator
 			if (SUPPORTS_LIST_ITERATOR) {
-				// TODO: will add for double-linked list
+				// double-linked list
 				printTest(scenarioName + "_testListIter", testListIter(scenario.build(), Result.NoException));
 				printTest(scenarioName + "_testListIterNeg1",
 						testListIter(scenario.build(), -1, Result.IndexOutOfBounds));
@@ -1762,12 +1761,6 @@ public class ListTester {
 						testIterHasNext(listIterAfterNext(scenario.build().listIterator(), 1), Result.True));
 				printTest(scenarioName + "_listIterNext_testHasPrevious",
 						testListIterHasPrevious(listIterAfterNext(scenario.build().listIterator(), 1), Result.True));
-				printTest(scenarioName + "_listIterNext_testNextIndex",
-						testListIterNextIndex(listIterAfterNext(scenario.build().listIterator(), 1), 1,
-								Result.MatchingValue));
-				printTest(scenarioName + "_listIterNext_testPreviousIndex",
-						testListIterPreviousIndex(listIterAfterNext(scenario.build().listIterator(), 1), 0,
-								Result.MatchingValue));
 				// after one next(): next() returns contents[1]
 				printTest(scenarioName + "_listIterNext_testNext",
 						testIterNext(listIterAfterNext(scenario.build().listIterator(), 1), contents[1],
@@ -1781,12 +1774,6 @@ public class ListTester {
 						testIterHasNext(listIterAfterNext(scenario.build().listIterator(), 2), Result.False));
 				printTest(scenarioName + "_listIterNextNext_testHasPrevious",
 						testListIterHasPrevious(listIterAfterNext(scenario.build().listIterator(), 2), Result.True));
-				printTest(scenarioName + "_listIterNextNext_testNextIndex",
-						testListIterNextIndex(listIterAfterNext(scenario.build().listIterator(), 2), 2,
-								Result.MatchingValue));
-				printTest(scenarioName + "_listIterNextNext_testPreviousIndex",
-						testListIterPreviousIndex(listIterAfterNext(scenario.build().listIterator(), 2), 1,
-								Result.MatchingValue));
 				// after two next(): next() throws NoSuchElement
 				printTest(scenarioName + "_listIterNextNext_testNextNoSuch",
 						testIterNext(listIterAfterNext(scenario.build().listIterator(), 2), null,
@@ -1864,7 +1851,7 @@ public class ListTester {
 			String contentsString) {
 		System.out.printf("\nSCENARIO: %s\n\n", scenarioName);
 		try {
-			// TODO: tests for scenarios resulting in a 3-element list
+			// tests for scenarios resulting in a 3-element list
 			printTest(scenarioName + "_testRemoveFirst",
 					testRemoveFirst(scenario.build(), contents[0], Result.MatchingValue));
 			printTest(scenarioName + "_testRemoveLast",
@@ -2006,7 +1993,7 @@ public class ListTester {
 					testIterRemove(iterAfterRemove(iterAfterNext(scenario.build(), 3)), Result.IllegalState));
 			// ListIterator
 			if (SUPPORTS_LIST_ITERATOR) {
-				// TODO: will add for double-linked list
+				// double-linked list
 				printTest(scenarioName + "_testListIter", testListIter(scenario.build(), Result.NoException));
 				printTest(scenarioName + "_testListIterNeg1",
 						testListIter(scenario.build(), -1, Result.IndexOutOfBounds));
@@ -2036,15 +2023,6 @@ public class ListTester {
 				printTest(scenarioName + "_listIterNext_testNextIndex",
 						testListIterNextIndex(listIterAfterNext(scenario.build().listIterator(), 1), 1,
 								Result.MatchingValue));
-				printTest(scenarioName + "_listIterNext_testPreviousIndex",
-						testListIterPreviousIndex(listIterAfterNext(scenario.build().listIterator(), 1), 0,
-								Result.MatchingValue));
-				printTest(scenarioName + "_listIterNext_testNext",
-						testIterNext(listIterAfterNext(scenario.build().listIterator(), 1), contents[1],
-								Result.MatchingValue));
-				printTest(scenarioName + "_listIterNext_testPrevious",
-						testListIterPrevious(listIterAfterNext(scenario.build().listIterator(), 1), contents[0],
-								Result.MatchingValue));
 				// after two next(): hasNext/hasPrevious, indices, next, previous
 				printTest(scenarioName + "_listIterNextNext_testHasNext",
 						testIterHasNext(listIterAfterNext(scenario.build().listIterator(), 2), Result.True));
@@ -2053,26 +2031,11 @@ public class ListTester {
 				printTest(scenarioName + "_listIterNextNext_testNextIndex",
 						testListIterNextIndex(listIterAfterNext(scenario.build().listIterator(), 2), 2,
 								Result.MatchingValue));
-				printTest(scenarioName + "_listIterNextNext_testPreviousIndex",
-						testListIterPreviousIndex(listIterAfterNext(scenario.build().listIterator(), 2), 1,
-								Result.MatchingValue));
-				printTest(scenarioName + "_listIterNextNext_testNext",
-						testIterNext(listIterAfterNext(scenario.build().listIterator(), 2), contents[2],
-								Result.MatchingValue));
-				printTest(scenarioName + "_listIterNextNext_testPrevious",
-						testListIterPrevious(listIterAfterNext(scenario.build().listIterator(), 2), contents[1],
-								Result.MatchingValue));
 				// after three next(): hasNext false, hasPrevious true, indices
 				printTest(scenarioName + "_listIterNextNextNext_testHasNext",
 						testIterHasNext(listIterAfterNext(scenario.build().listIterator(), 3), Result.False));
 				printTest(scenarioName + "_listIterNextNextNext_testHasPrevious",
 						testListIterHasPrevious(listIterAfterNext(scenario.build().listIterator(), 3), Result.True));
-				printTest(scenarioName + "_listIterNextNextNext_testNextIndex",
-						testListIterNextIndex(listIterAfterNext(scenario.build().listIterator(), 3), 3,
-								Result.MatchingValue));
-				printTest(scenarioName + "_listIterNextNextNext_testPreviousIndex",
-						testListIterPreviousIndex(listIterAfterNext(scenario.build().listIterator(), 3), 2,
-								Result.MatchingValue));
 				// after three next(): next() throws NoSuchElement
 				printTest(scenarioName + "_listIterNextNextNext_testNextNoSuch",
 						testIterNext(listIterAfterNext(scenario.build().listIterator(), 3), null,
@@ -3440,7 +3403,211 @@ public class ListTester {
 	private void test_ListIterConcurrency() {
 		System.out.println("\nListIterator Concurrency Tests\n");
 		try {
-			// TODO: will add for double-linked list
+			// double-linked list
+			// Two independent ListIterators on the same list do not affect each other unless one of them modifies the list.
+			printTest("emptyList_testConcurrentListIter",
+					testListIterConcurrent(newList(), Result.NoException));
+			printTest("A_testConcurrentListIter",
+					testListIterConcurrent(emptyList_addToFrontA_A(), Result.NoException));
+			printTest("A_testConcurrentListIter0_1",
+					testListIterConcurrent(emptyList_addToFrontA_A(), 0, 1, Result.NoException));
+			printTest("AB_testConcurrentListIter",
+					testListIterConcurrent(A_addToRearB_AB(), Result.NoException));
+			printTest("AB_testConcurrentListIter0_1",
+					testListIterConcurrent(A_addToRearB_AB(), 0, 1, Result.NoException));
+			printTest("AB_testConcurrentListIter0_2",
+					testListIterConcurrent(A_addToRearB_AB(), 0, 2, Result.NoException));
+
+			// Not mutated list method calls do not invalidate a ListIterator
+			IndexedUnsortedList<Integer> list = emptyList_addToFrontA_A();
+			ListIterator<Integer> it1 = list.listIterator();
+			list.first();
+			printTest("A_first_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.True));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.first();
+			printTest("A_first_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.MatchingValue));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.first();
+			printTest("A_first_testListIterHasPreviousConcurrent",
+					testListIterHasPrevious(it1, Result.False));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.last();
+			printTest("A_last_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.True));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.last();
+			printTest("A_last_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.MatchingValue));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.contains(ELEMENT_A);
+			printTest("A_contains_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.True));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.contains(ELEMENT_A);
+			printTest("A_contains_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.MatchingValue));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.isEmpty();
+			printTest("A_isEmpty_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.True));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.size();
+			printTest("A_size_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.True));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.get(0);
+			printTest("A_get0_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.True));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.get(0);
+			printTest("A_get0_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.MatchingValue));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.indexOf(ELEMENT_A);
+			printTest("A_indexOf_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.True));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.toString();
+			printTest("A_toString_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.True));
+			// Mutating list methods DO invalidate a ListIterator
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.addToFront(ELEMENT_B);
+			printTest("A_addToFrontB_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.addToFront(ELEMENT_B);
+			printTest("A_addToFrontB_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.addToFront(ELEMENT_B);
+			printTest("A_addToFrontB_testListIterHasPreviousConcurrent",
+					testListIterHasPrevious(it1, Result.ConcurrentModification));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.addToRear(ELEMENT_B);
+			printTest("A_addToRearB_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.addToRear(ELEMENT_B);
+			printTest("A_addToRearB_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.ConcurrentModification));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.addAfter(ELEMENT_B, ELEMENT_A);
+			printTest("A_addAfterAB_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.addAfter(ELEMENT_B, ELEMENT_A);
+			printTest("A_addAfterAB_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.ConcurrentModification));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.add(0, ELEMENT_B);
+			printTest("A_add0B_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.add(0, ELEMENT_B);
+			printTest("A_add0B_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.ConcurrentModification));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.removeFirst();
+			printTest("A_removeFirst_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.removeFirst();
+			printTest("A_removeFirst_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.removeFirst();
+			printTest("A_removeFirst_testListIterHasPreviousConcurrent",
+					testListIterHasPrevious(it1, Result.ConcurrentModification));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.removeLast();
+			printTest("A_removeLast_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.removeLast();
+			printTest("A_removeLast_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.ConcurrentModification));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.remove(ELEMENT_A);
+			printTest("A_removeA_testListIterHasNextConcurrent",
+					testIterHasNext(it1, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			list.remove(ELEMENT_A);
+			printTest("A_removeA_testListIterNextConcurrent",
+					testIterNext(it1, ELEMENT_A, Result.ConcurrentModification));
+			// One ListIterator's mutations invalidate a second ListIterator on the same list
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			ListIterator<Integer> it2 = list.listIterator();
+			it1.next();
+			it1.remove();
+			printTest("A_listIter1NextRemove_testListIter2HasNextConcurrent",
+					testIterHasNext(it2, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			it2 = list.listIterator();
+			it1.next();
+			it1.remove();
+			printTest("A_listIter1NextRemove_testListIter2NextConcurrent",
+					testIterNext(it2, ELEMENT_A, Result.ConcurrentModification));
+
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			it2 = list.listIterator();
+			it1.next();
+			it1.set(ELEMENT_B);
+			printTest("A_listIter1NextSet_testListIter2HasNextConcurrent",
+					testIterHasNext(it2, Result.ConcurrentModification));
+			list = emptyList_addToFrontA_A();
+			it1 = list.listIterator();
+			it2 = list.listIterator();
+			it1.next();
+			it1.set(ELEMENT_B);
+			printTest("A_listIter1NextSet_testListIter2NextConcurrent",
+					testIterNext(it2, ELEMENT_A, Result.ConcurrentModification));
 		} catch (Exception e) {
 			System.out.printf("***UNABLE TO RUN/COMPLETE %s***\n", "test_ListIterConcurrency");
 			e.printStackTrace();

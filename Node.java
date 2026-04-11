@@ -18,7 +18,7 @@ public class Node<T> {
     }
 
     /**
-     * Create Node with the given element.
+     * Create node with the given element.
      * 
      * @param element the element to store in this node
      */
@@ -29,8 +29,7 @@ public class Node<T> {
     }
 
     /**
-     * Creates a node with the given element and next node reference while prevNode
-     * is set to null.
+     * Creates a node with the given element and next node reference while prevNode is set to null.
      * 
      * @param element  the element to store
      * @param nextNode the node that follows this one
@@ -60,7 +59,7 @@ public class Node<T> {
     }
 
     /**
-     * Returns the node that precedes this one.
+     * Returns the node that is before this one.
      * 
      * @return the previous node, or null if none
      */
@@ -69,7 +68,7 @@ public class Node<T> {
     }
 
     /**
-     * Sets the node that precedes this one.
+     * Sets the node that is before this one.
      * 
      * @param prevNode the node to precede this one
      */

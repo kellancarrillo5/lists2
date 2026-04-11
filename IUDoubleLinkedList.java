@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * Double-linked node-based implementation of IndexUnsortedList
  * support a basic Iterator and a ListIterator
  * 
- * @author mvail and CS221-1 Sp2026
+ * @author mvail, CS221-1 Sp2026, kellancarrillo5
  */
 public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
     private Node<T> head;
@@ -68,7 +68,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
         if (current == null) {
             throw new NoSuchElementException();
         }
-        // Insert newNode between current and current.next
+        // Insert newNode between current and next
         Node<T> newNode = new Node<T>(element);
         newNode.setPrevNode(current);
         newNode.setNextNode(current.getNextNode());
@@ -93,7 +93,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
         } else if (index == size) {
             addToRear(element);
         } else {
-            // Walk to the node currently at 'index'
+            // Go to the node currently at index
             Node<T> nodeAtIndex = nodeAt(index);
             Node<T> newNode = new Node<T>(element);
             Node<T> prev = nodeAtIndex.getPrevNode();
@@ -228,7 +228,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
     /**
      * Removes the given node from the list and returns its element.
      * 
-     * @param node the node to remove (must be in this list)
+     * @param node the node to remove in the list
      * @return the element stored in the removed node
      */
     private T removeNode(Node<T> node) {
@@ -290,22 +290,22 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         return new DLLIterator();
     }
 
     @Override
-    public ListIterator listIterator() {
+    public ListIterator<T> listIterator() {
         return new DLLIterator();
     }
 
     @Override
-    public ListIterator listIterator(int startingIndex) {
+    public ListIterator<T> listIterator(int startingIndex) {
         return new DLLIterator(startingIndex);
     }
 
     /**
-     * ListIterator ( and basic Iterator for Double Linked List)
+     * ListIterator and basic Iterator for Double Linked List.
      */
     private class DLLIterator implements ListIterator<T> {
         private Node<T> nextNode;
@@ -315,14 +315,14 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
         private int nextIndex;
 
         /**
-         * initialize iterator before the first element
+         * Initializes the iterator before the first element.
          */
         public DLLIterator() {
-            this(0); 
+            this(0);
         }
 
         /**
-         * Initializes iterator before the given startingIndex
+         * Initializes the iterator before the given startingIndex.
          * 
          * @param startingIndex
          * @throws IndexOutOfBounds
@@ -383,8 +383,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
             if (!hasPrevious()) {
                 throw new NoSuchElementException();
             }
-            // Step the cursor back
-            if (nextNode != null) {
+            if (nextNode != null) { // Step the cursor back
                 nextNode = nextNode.getPrevNode();
             } else {
                 nextNode = tail; // cursor was at end; step back to tail
@@ -421,10 +420,12 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
             }
             // Adjust nextNode/nextIndex so cursor stays logically in place
             if (lastWasNext) {
-                // next() was the last movement – lastReturned is behind cursor
+                // next() was the last movement so lastReturned is behind cursor, decrement
+                // nextIndex
                 nextIndex--;
             } else {
-                // previous() was the last movement – lastReturned is at cursor; advance it
+                // previous() was the last movement so lastReturned is at cursor, most nextNode
+                // forward!
                 nextNode = lastReturned.getNextNode();
             }
             removeNode(lastReturned); // updates size and modCount
@@ -441,7 +442,7 @@ public class IUDoubleLinkedList<T> implements IndexedUnsortedList<T> {
                 throw new IllegalStateException();
             }
             lastReturned.setElement(e);
-            // set() increments the list modCount; sync the iterator's copy
+            // set() increments the list modCount, match with the iterator's copy
             modCount++;
             iterModCount = modCount;
         }

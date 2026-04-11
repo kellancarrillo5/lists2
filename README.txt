@@ -15,7 +15,7 @@ INCLUDED FILES:
  * IUDoubleLinkedList.java - source file, double linked list implementation of IndexUnsortedList including a DLLIterator class
  * ListTester.java - source file, verifies the behavior of IndexedUnsortedList and implementation with all ListIterator methods and concurrency scenarios
  * Node.java - source file, double linked node that stores an element and is able to references to both the next and previous nodes
- * IndexUnsorted.java - source file, the interface that defines all methods that IUDoubleLinkedList inherits
+ * IndexUnsortedList.java - source file, the interface that defines all methods that IUDoubleLinkedList inherits
  * README.txt - this file
 
 
@@ -37,7 +37,7 @@ TESTING:
  
 Testing was done with the provided testing class ListTester and adding upon it in stages. Each scenario builder method constructs a list in a specific state, modifies it, and then tests if it was the anticipated result. These test checks every observable property of the list in that state like the size, isEmpty, first, last, contains, get, indexOf, toString, all iterator states, and all expected exceptions for out-of-bounds or invalid operations. The testing class covers four list sizes: empty, one element, two elements, three elements for all of the construction scenarios. The ListIterator were also written for all of the list sizes. 
 
-All tests are passing with no failure. The program ensures all index and element arguments and throws the appropriate exceptions in every case required by the interface contract.
+All tests are passing with no failure. The program checks that all index and element arguments and throws the correct exceptions in every case required by the interface contract.
 
 
 DISCUSSION:
